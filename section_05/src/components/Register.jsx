@@ -1,26 +1,23 @@
 import { useState } from 'react';
 
 const Register = () => {
-    const [name, setName] = useState("");
-    const [birth, setBirth] = useState("");
-    const [country, setCountry] = useState("");
-    const [introduce, setIntroduce] = useState("");
+    const [input, setInput] = useState({
+        name: "",
+        birth: "",
+        country: "",
+        bio: ""
+    })
 
 
-    const onChangeName = (e) => {
-        setName(e.target.value);
+    const onChange = (e) => {
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value
+        })
     }
 
-    const onChangeBirth = (e) => {
-        setBirth(e.target.value);
-    }
-
-    const onChangeCountry = (e) => {
-        setCountry(e.target.value);
-    }
-
-    const onChangeIntroduce = (e) => {
-        setIntroduce(e.target.value);
+    const onSubmit = () => {
+        console.log(input);
     }
 
     return (
@@ -28,22 +25,24 @@ const Register = () => {
             <h1>Register</h1>
             <div>
                 <input type="text"
-                    value={name}
+                    name="name"
+                    value={input.name}
                     placeholder="이름"
-                    onChange={onChangeName}
+                    onChange={onChange}
                 />
             </div>
 
             <div>
                 <input type="date"
-                    value={birth}
+                    name="birth"
+                    value={input.birth}
                     placeholder="생년월일"
-                    onChange={onChangeBirth}
+                    onChange={onChange}
                 />
             </div>
 
             <div>
-                <select value={country} onChange={onChangeCountry}>
+                <select name="country" value={input.country} onChange={onChange}>
                     <option value="none">국가 선택</option>
                     <option value="KR">한국</option>
                     <option value="US">미국</option>
@@ -51,9 +50,10 @@ const Register = () => {
                 </select>
             </div>
             <div>
-                <textarea value={introduce} onChange={onChangeIntroduce} placeholder="소개글" />
+                <textarea name="bio" value={input.bio} onChange={onChange} placeholder="소개글" />
             </div>
-            <button style={{ width: "100px", height: "30px", backgroundColor: "blue", color: "white", border: "none", borderRadius: "5px", cursor: "pointer" }}>
+            <button style={{ width: "100px", height: "30px", backgroundColor: "blue", color: "white", border: "none", borderRadius: "5px", cursor: "pointer" }}
+                onClick={onSubmit}>
                 가입하기
             </button>
         </div>
