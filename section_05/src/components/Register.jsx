@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 const Register = () => {
     const [input, setInput] = useState({
@@ -6,10 +6,15 @@ const Register = () => {
         birth: "",
         country: "",
         bio: ""
-    })
+    });
 
+    const countRef = useRef(0);
+    const inputRef = useRef();
 
     const onChange = (e) => {
+        countRef.current++;
+        console.log(countRef.current);
+
         setInput({
             ...input,
             [e.target.name]: e.target.value
@@ -17,6 +22,10 @@ const Register = () => {
     }
 
     const onSubmit = () => {
+        if (input.name === "") {
+            inputRef.current.focus();
+            return;
+        }
         console.log(input);
     }
 
@@ -26,6 +35,7 @@ const Register = () => {
             <div>
                 <input type="text"
                     name="name"
+                    ref={inputRef}
                     value={input.name}
                     placeholder="이름"
                     onChange={onChange}
